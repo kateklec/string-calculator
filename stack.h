@@ -28,6 +28,9 @@ public:
     }
 
     void pop() {
+    if (empty()) {
+        throw std::runtime_error("Stack is empty");
+    }
         --size_;
         Node <T>* node = top_;
         top_ = top_->next_;
@@ -35,6 +38,9 @@ public:
     }
 
     T top() {
+    if (empty()) {
+        throw std::runtime_error("Stack is empty");
+    }
         return top_->data_;
     }
 

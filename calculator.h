@@ -21,11 +21,6 @@ private:
     T* customConstCast(const T* ptr) {
         return (T*)(ptr);
     }
-
-    template <typename T>
-    T** customConstCast(const T** ptr) {
-        return (T**)(ptr);
-    }
     
     bool maths(StackList<OperOrNum>& stack_nums, StackList<OperOrNum>& stack_oper, OperOrNum& item);
     bool isStringEmpty(const char* str);

@@ -54,7 +54,6 @@ bool Calculator::isStringEmpty(const char* str) {
 
 double Calculator::strToDouble(const char* str, char** endPtr) {
     double res = 0.0;
-    bool isNegative = false;
     bool hasDecimal = false;
     double decimalPart = 0.1;
 
@@ -64,14 +63,6 @@ double Calculator::strToDouble(const char* str, char** endPtr) {
     }
 
     const char* start = str;
-
-    if (*str == '-') {
-        isNegative = true;
-        ++str;
-    }
-    else if (*str == '+') {
-        ++str;
-    }
 
     while (*str >= '0' && *str <= '9') {
         res = res * 10 + (*str - '0');
@@ -94,7 +85,7 @@ double Calculator::strToDouble(const char* str, char** endPtr) {
         throw std::runtime_error("Unable to parse number from string.");
     }
 
-    return isNegative ? -res : res;
+    return res;
 }
 
 int Calculator::getOperatorPriority(char ch) {
@@ -144,22 +135,6 @@ double Calculator::calc(const char* str) throw(std::runtime_error) {
 
             if (endPtr == str) {
                 throw std::runtime_error("Unable to parse number from string.");
-            }
-
-            if (*str == '.') {
-                const char* newStr = "0";
-                char combinedStr[1024];
-
-                combinedStr[0] = '0';
-
-                int i = 1;
-                while (*str) {
-                    combinedStr[i++] = *str++;
-                }
-                combinedStr[i] = '\0';
-
-                const char* endPtr;
-                double value = strToDouble(combinedStr, customConstCast<char>(&endPtr));
             }
 
             item.type = '0';
